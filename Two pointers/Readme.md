@@ -1,65 +1,92 @@
 # Two-Pointer Pattern - Day 1
 
+A quick guide to understanding the **Two-Pointer Technique**, a common pattern in array and string problems.  
+
+---
+
+## Table of Contents
+
+- [Universal Template](#universal-template)
+- [Key Notes](#key-notes)
+- [Common Variations](#common-variations)
+- [Example Problems](#example-problems)
+- [Tips & Tricks](#tips--tricks)
+
+---
+
 ## Universal Template
+
+The two-pointer technique usually involves initializing **two pointers** (often `i` and `j`) at different positions and moving them based on conditions.  
+
 ```cpp
 int i = 0, j = n - 1;
-while(i < j){
-    while(i < j && !condition_i) i++;
-    while(i < j && !condition_j) j--;
-    if(i < j){
-        process/swap
-        i++; j--;
+
+while (i < j) {
+    while (i < j && !condition_i) i++;
+    while (i < j && !condition_j) j--;
+
+    if (i < j) {
+        // process or swap elements
+        i++;
+        j--;
     }
 }
 Key Notes
 Move pointers until the condition is satisfied.
 
-Swap or calculate only after both pointers meet the condition.
+Perform swap or calculation only after both pointers meet the condition.
 
 Stop when pointers cross (i >= j).
 
 Always check i < j in inner loops to avoid out-of-bounds errors.
 
-Problems Covered (Day 1)
-LeetCode 26 – Remove Duplicates from Sorted Array
+Common Variations
+Two pointers from opposite ends
 
-Pointer k tracks next unique element.
+Useful in sorted arrays for sums, palindrome checks, etc.
 
-Compare nums[i] with nums[i+1] safely.
+Two pointers from the same start
 
-Example:
+Often used in sliding window problems or contiguous subarray checks.
 
-Input: [1,1,2]
-Output: [1,2], length = 2
-LeetCode 167 – Two Sum II (Input Array Sorted)
+Fast & Slow pointers
 
-i = left, j = right.
+One pointer moves faster than the other, e.g., detecting cycles in linked lists.
 
-Move the pointer of the smaller number.
+Example Problems
+1. Check Palindrome (Alphanumeric Only)
+bool isPalindrome(string s) {
+    int i = 0, j = s.size() - 1;
 
-Example:
+    while (i < j) {
+        while (i < j && !isalnum(s[i])) i++;
+        while (i < j && !isalnum(s[j])) j--;
 
-Input: [2,7,11,15], target=9
-Output: [1,2]
-LeetCode 11 – Container With Most Water
+        if (i < j) {
+            if (tolower(s[i]) != tolower(s[j])) return false;
+            i++; j--;
+        }
+    }
+    return true;
+}
+2. Two Sum II (Sorted Array)
+vector<int> twoSum(vector<int>& numbers, int target) {
+    int i = 0, j = numbers.size() - 1;
 
-i = left, j = right.
+    while (i < j) {
+        int sum = numbers[i] + numbers[j];
+        if (sum == target) return {i + 1, j + 1};
+        else if (sum < target) i++;
+        else j--;
+    }
+    return {};
+}
+Tips & Tricks
+Always clarify the pointer movement: when to increment or decrement.
 
-Width = j-i, height = min(height[i], height[j]).
+Think in terms of conditions rather than absolute indices.
 
-Move pointer with smaller height.
+For arrays with duplicates, check whether skipping duplicates is needed.
 
-Example:
+Visualizing the pointers on paper or using a debugger helps avoid off-by-one errors.
 
-Input: [1,8,6,2,5]
-Output: 15
-LeetCode 345 – Reverse Vowels of a String
-
-i = left, j = right.
-
-Skip non-vowels, swap vowels.
-
-Example:
-
-Input: "hello"
-Output: "holle"
