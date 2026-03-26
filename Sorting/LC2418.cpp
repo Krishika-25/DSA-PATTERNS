@@ -1,6 +1,7 @@
 
 #include <bits/stdc++.h>
-using namespace std;class Solution {
+using namespace std;
+class Solution {
 public:
     vector<string> sortPeople(vector<string>& names, vector<int>& heights) {
         int temp;
