@@ -28,3 +28,29 @@ int main() {
     cout << endl;
     return 0;
 }
+
+
+// Two Sum II (Sorted Array) – Key Notes
+
+// Approach: Two Pointers
+
+// Use two pointers
+// i = 0 (start)
+// j = n - 1 (end)
+// Since array is sorted
+// If sum is small → move i++
+// If sum is large → move j--
+
+// Important Concept
+
+// sum must be calculated inside the loop
+// Because i and j change every iteration
+// If you calculate sum outside , it will stay constant /Logic will break (wrong answer or infinite loop)
+
+// Loop Condition
+
+// Always use
+
+// while (i < j)
+// Do not use i <= j
+// Reason: same element cannot be used twice
