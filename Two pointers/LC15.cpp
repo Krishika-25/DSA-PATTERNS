@@ -3,27 +3,30 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        vector<vector<int>> ans;
         sort(nums.begin(), nums.end());
-        for (int i = 0; i < nums.size(); i++) {
-            if (i > 0 && nums[i] == nums[i - 1])
+        vector<vector<int>> ans;
+        int i = 0;
+        for (i = 0; i < nums.size() - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
-            int k = i + 1;
-            int j = nums.size() - 1;
-            while (k < j) {
-                int sum = nums[i] + nums[k] + nums[j];
-                if (sum == 0) {
-                    ans.push_back({nums[i], nums[k], nums[j]});
-                    k++;
-                    j--;
-                    while (k < j && nums[k] == nums[k - 1])
-                        k++;
-                    while (k < j && nums[j] == nums[j + 1])
-                        j--;
-                } else if (sum < 0) {
-                    k++;
+            }
+            int left = i + 1;
+            int right = nums.size() - 1;
+            int sum = -1 * nums[i];
+            while (left < right) {
+                int s = nums[left] + nums[right];
+                if (s == sum) {
+                    ans.push_back({nums[i], nums[left], nums[right]});
+                    left++;
+                    right--;
+                    while (left < nums.size() && nums[left] == nums[left - 1])
+                        left++;
+                    while (right > 0 && nums[right] == nums[right + 1])
+                        right--;
+                } else if (s < sum) {
+                    left++;
                 } else {
-                    j--;
+                    right--;
                 }
             }
         }
